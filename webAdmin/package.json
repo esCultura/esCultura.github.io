@@ -22,5 +22,18 @@
     "jsdom": "^21.1.0",
     "vite": "^4.1.4",
     "vitest": "^0.29.1"
+  },
+  "private": true,
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**",
+      "!<rootDir>/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 40
+      }
+    }
   }
 }
