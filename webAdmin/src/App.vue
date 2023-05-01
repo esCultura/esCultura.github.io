@@ -1,43 +1,36 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-
-
-//Per cridar una api rest
-
-let credentials = "pduran:esculturapes";
-
-fetch("http://127.0.0.1:8000/events/list/", { 
-  method: "GET", 
-  mode: "no-cors",
-  headers: new Headers({
-    "Authorization": `Basic ${credentials}`
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-
-
-</script>
-
 <template>
   <header>
-    <img alt="Vue logo" class="logo" width="125" height="125" />
-
+    
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      
 
-      <v-btn>AAA</v-btn>
+      <v-btn
+        @click="doFetch()"
+      >AAA</v-btn>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+      
     </div>
   </header>
-
-  <RouterView />
 </template>
+
+
+<script>
+  import {simpleFetch} from '../src/utils/utilFunctions'
+
+  export default {
+    setup() {
+
+      function doFetch() {
+        let endpoint = 'esdeveniments/';
+        simpleFetch(endpoint, "GET", "").then((data) => console.log("Data: ", data)) 
+      }
+
+      return {
+        doFetch
+      }
+    }
+  }
+</script>
 
 <style scoped>
 header {
