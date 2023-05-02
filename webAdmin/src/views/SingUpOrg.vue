@@ -4,7 +4,7 @@
 
       <v-btn @click="fetchUser()">A</v-btn>
 
-      <div> QR Esdeveniment </div>
+      <div> registrar org </div>
   </div>
 
 </template>
