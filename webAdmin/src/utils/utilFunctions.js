@@ -1,4 +1,4 @@
-let token = '';
+let token = '4399aea952484e30ad0208cd72bf64a083c9b8c4';
 
 export function setToken(value) {
     token = value;
