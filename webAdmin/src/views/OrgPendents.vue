@@ -1,16 +1,62 @@
 <template>
 
-    <div>
+    <div v-if="pendents">
   
-        <v-btn @click="fetchUser()">A</v-btn>
+        <v-card 
+            v-for="org of pendents"
+            class="my-5 mx-10"
+        >
+            <v-row justify="space-between" style="height: 75px;">
+                <v-card-title>CRUD Esdeveniment comp</v-card-title>
+                <div style="display: flex; justify-content: left;" class="mt-5">
+
+                    <v-btn @click="donarAcces()" color="#2eca5a" class="mr-5" >Aceptar</v-btn>
+
+                    <v-dialog
+                        v-model="dialogDelete"
+                        persistent
+                        width="auto"
+                        >
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" color="red" class="mr-8" >Eliminar</v-btn>
+                        </template>
+                        <v-card>
+                            <v-card-title class="text-h5">
+                                Segur que vols eliminar
+                            </v-card-title>
+                            <v-card-text> 
+                                si elimines no ho podras recuperar
+                            </v-card-text>
+                            <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="green"
+                                @click="dialogDelete = false"
+                            >
+                                NO
+                            </v-btn>
+                            <v-btn
+                                color="red"
+                                @click="deleteOrg()"
+                            >
+                                SI
+                            </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+
+                    
+                </div>
+            </v-row>
+        </v-card>
   
-        <div> ORG PENDENTS </div>
     </div>
   
   </template>
   
   <script>
     import {simpleFetch} from '../utils/utilFunctions';
+    import {ref} from 'vue';
   
     export default {
         
@@ -26,17 +72,30 @@
         setup(props) {
         */
         setup() {
-  
+            let pendents = ref(["org1", "org2", "org3"]);
+            let dialogDelete = ref(false);
             
-            async function fetchUser() {
-                let issues;
-                simpleFetch("issues/", "GET", "").then((data) => issues = data);    
-                console.log("issues: ", issues);
+            function deleteOrg() {
+                dialogDelete.value = false;
+                console.log("sha eliminat el org");
+                //fetch delete eliminar
             }
+
+            function donarAcces() {
+                console.log("sha donat acces el org");
+                //fetch donar acces
+            }
+           
   
             return {
-                fetchUser
+                pendents,
+                dialogDelete,
+                deleteOrg,
+                donarAcces
             }
+        },
+        mounted() {
+            //simpleFetch("usuaris/organitzadors/", "GET", "").then((data) => this.pendent = data);
         }
     }
   </script>
