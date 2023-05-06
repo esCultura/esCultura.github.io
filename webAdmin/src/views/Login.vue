@@ -6,7 +6,7 @@
       width="500"
       style="border-radius: 40px;"
     >
-      <v-card-title class="text-center mt-3">Login</v-card-title>
+      <v-card-title class="text-center mt-3">LoginP</v-card-title>
       <v-card-text>
         <v-text-field v-model="username" label="Username" required style="margin-top: 100px;"></v-text-field>
         <v-text-field @keydown.enter="doLogin()" v-model="password" label="Password" type="password" required style="margin-top: 30px;"></v-text-field>
