@@ -24,9 +24,6 @@ jobs:
           
       - name: Install Node modules
         run: cd webAdmin && npm install
-
-      - name: Deploy web admin
-        run: cd webAdmin && npm run deploy  
         
       - name: Unit & Integration Tests & Coverage 40%
         run: cd webAdmin && npm test
