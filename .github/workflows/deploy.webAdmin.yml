@@ -31,8 +31,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-          
+
       - name: Install dependencies
         run: cd webAdmin &&  npm install
       - name: Build
-        run: cd webAdmin && npm run deploy
+        run: cd webAdmin && npm run build
+      - name: Deploy
+        run: cd webAdmin && npm run deploy  

@@ -4,7 +4,7 @@
 
         >    
             <v-app-bar-title>
-                esCultura
+                esCulturaaa
             </v-app-bar-title>
 
             <RouterLink to="/Login">
