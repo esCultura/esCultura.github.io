@@ -52,7 +52,7 @@
 <script>
     import {simpleFetch} from '../utils/utilFunctions';
     import { onMounted, ref } from 'vue';
-    import RowEditEsde from '../components/rowEditEsde.vue';
+    import RowEditEsde from './RowEditEsde.vue';
 
     export default {
         
