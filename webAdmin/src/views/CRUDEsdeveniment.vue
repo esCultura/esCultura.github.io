@@ -45,6 +45,8 @@
         <RowEditEsde
             v-for="esdeveniment of esdeveniments"
             :esdeveniment=esdeveniment
+            @update_esdeveniment="update_esdeveniment"
+            @delete_esdeveniment="delete_esdeveniment"
         ></RowEditEsde>
     </div>
 
@@ -78,6 +80,16 @@
                 buscar,
                 dialogAdd,
                 addEsde
+            }
+        },
+        methods: {
+            update_esdeveniment(nouEsdeveniment) {
+                const index = this.esdeveniments.findIndex(e => e.codi === nouEsdeveniment.codi);
+                this.esdeveniments.splice(index, 1, nouEsdeveniment);
+            },
+            delete_esdeveniment(codi_esdeveniment) {
+                const index = this.esdeveniments.findIndex(e => e.codi === codi_esdeveniment);
+                this.esdeveniments.splice(index, 1);
             }
         },
         mounted() {

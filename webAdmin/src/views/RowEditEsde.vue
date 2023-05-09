@@ -11,7 +11,7 @@
                     max-width="100%"
                     >
                     <template v-slot:activator="{ props }">
-                        <v-btn v-bind="props" color="#2eca5a" class="mr-5" >edit</v-btn>
+                        <v-btn v-bind="props" color="#2eca5a" class="mr-5" >Modificar</v-btn>
                     </template>
                     <v-card>
                         <v-card-title class="text-h5">
@@ -38,7 +38,7 @@
                         </v-btn>
                         <v-btn
                             color="green"
-                            @click="saveEdit()" 
+                            @click="saveEdit()"
                         >
                             Actualitzar
                         </v-btn>
@@ -53,14 +53,14 @@
                     width="auto"
                     >
                     <template v-slot:activator="{ props }">
-                        <v-btn v-bind="props" color="red" class="mr-8" >delete</v-btn>
+                        <v-btn v-bind="props" color="red" class="mr-8" >Esborrar</v-btn>
                     </template>
                     <v-card>
                         <v-card-title class="text-h5">
-                            Segur que vols eliminar
+                            Segur que vols aquest esdeveniment?
                         </v-card-title>
                         <v-card-text> 
-                            si elimines no ho podras recuperar
+                            Si elimines l'esdeveniment no el podràs recuperar, i deixarà d'estar disponible per a la ciutadania.
                         </v-card-text>
                         <v-card-actions>
                         <v-spacer></v-spacer>
@@ -72,9 +72,9 @@
                         </v-btn>
                         <v-btn
                             color="red"
-                            @click="deleteEsde()"
+                            @click="deleteEsdeveniment()"
                         >
-                            SI
+                            SÍ
                         </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -97,6 +97,31 @@
         props: {
             esdeveniment: Object,
         },
+        methods: {
+            async saveEdit() {
+                this.dialogEdit = false;
+                let data = {
+                    'nom': this.nom,
+                    'descripcio': this.descripcio,
+                    'dataIni': this.dataIni,
+                    'dataFi': this.dataFi,
+                    'horari': this.horari,
+                    'espai': this.espai,
+                    'url': this.url,
+                    'latitud': this.latitud,
+                    'longitud': this.longitud
+                }
+                let response = await simpleFetch("esdeveniments/" + this.esdeveniment.codi + "/", "PUT", data);
+                await this.$emit('update_esdeveniment', response)
+            },
+            async deleteEsdeveniment() {
+                this.dialogDelete = false;
+                let codi = this.esdeveniment.codi;
+                await simpleFetch("esdeveniments/" + codi + "/", "DELETE", "");
+                await this.$emit('delete_esdeveniment', codi)
+            }
+        },
+        emits: ['update_esdeveniment', 'delete_esdeveniment'],
         setup(props) {
 
             let dialogEdit = ref(false);
@@ -104,41 +129,17 @@
 
             let nom = ref(props.esdeveniment.nom);
             let descripcio = ref(props.esdeveniment.descripcio)
-            let dataIni = ref(props.esdeveniment.dataIni)
-            let dataFi = ref(props.esdeveniment.dataFi)
+            let dataIni = ref(new Date(props.esdeveniment.dataIni).toISOString().slice(0, 10))
+            let dataFi = ref(new Date(props.esdeveniment.dataFi).toISOString().slice(0, 10))
             let horari = ref(props.esdeveniment.horari)
             let espai = ref(props.esdeveniment.espai)
             let url = ref(props.esdeveniment.url)
             let latitud = ref(props.esdeveniment.latitud)
             let longitud = ref(props.esdeveniment.longitud)
 
-            async function saveEdit() {
-                dialogEdit.value = false;
-                let data = {
-                    'nom': nom.value,
-                    'descripcio': descripcio.value,
-                    'dataIni': dataIni.value,
-                    'dataFi': dataFi.value,
-                    'horari': horari.value,
-                    'espai': espai.value,
-                    'url': url.value,
-                    'latitud': latitud.value,
-                    'longitud': longitud.value
-                }
-                let result = await simpleFetch("esdeveniments/" + props.esdeveniment.codi + "/", "PUT", data).then((data) => this.esdeveniments = data);
-            }
-            
-            function deleteEsde() {
-                dialogDelete.value = false;
-                console.log("sha eliminat correctament");
-                //cridar delete per delet
-            }
-
             return {
                 dialogEdit,
                 dialogDelete,
-                saveEdit,
-                deleteEsde,
 
                 nom,
                 descripcio,
