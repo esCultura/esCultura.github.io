@@ -129,8 +129,16 @@
 
             let nom = ref(props.esdeveniment.nom);
             let descripcio = ref(props.esdeveniment.descripcio)
-            let dataIni = ref(new Date(props.esdeveniment.dataIni).toISOString().slice(0, 10))
-            let dataFi = ref(new Date(props.esdeveniment.dataFi).toISOString().slice(0, 10))
+            let formattedDateIni = new Date().toISOString().slice(0, 10);
+            let dataIni = ref(formattedDateIni)
+            if (props.esdeveniment.dataIni) {
+                dataIni = ref(new Date(props.esdeveniment.dataIni).toISOString().slice(0, 10))
+            }
+            let formattedDateFi = new Date().toISOString().slice(0, 10);
+            let dataFi = ref(formattedDateFi)
+            if (props.esdeveniment.dataFi) {
+                dataFi = ref(new Date(props.esdeveniment.dataFi).toISOString().slice(0, 10))
+            }
             let horari = ref(props.esdeveniment.horari)
             let espai = ref(props.esdeveniment.espai)
             let url = ref(props.esdeveniment.url)
