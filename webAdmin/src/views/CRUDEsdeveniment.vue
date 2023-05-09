@@ -8,7 +8,7 @@
             <v-dialog
                     v-model="dialogAdd"
                     persistent
-                    width="auto"
+                    max-width="100%"
                     >
                     <template v-slot:activator="{ props }">
                         <v-btn
@@ -18,10 +18,19 @@
                     </template>
                     <v-card>
                         <v-card-title class="text-h5">
-                            New esdeveniment
+                            Registrar un nou esdeveniment
                         </v-card-title>
-                        <v-card-text> 
-                            Text inputs necesaris per crear
+                        <v-card-text>
+                            <v-text-field v-model="nom" label="Nom" required></v-text-field>
+                            <v-textarea v-model="descripcio" label="Descripció"></v-textarea>
+                            <v-text-field v-model="dataIni" label="Data d'inici" type="date" required></v-text-field>
+                            <v-text-field v-model="dataFi" label="Data de final" type="date" required></v-text-field>
+                            <v-textarea v-model="horari" label="Horari"></v-textarea>
+                            <v-text-field v-model="espai" label="Espai"></v-text-field>
+                            <v-text-field v-model="url" label="Enllaç a l'esdeveniment" type="text" pattern="https?://.+"></v-text-field>
+                            <v-text-field v-model="latitud" label="Latitud" type="number" step="0.1"></v-text-field>
+                            <v-text-field v-model="longitud" label="Longitud" type="number" step="0.1"></v-text-field>
+
                         </v-card-text>
                         <v-card-actions>
                         <v-spacer></v-spacer>
@@ -29,11 +38,11 @@
                             color="red"
                             @click="dialogAdd = false"
                         >
-                            Cancel
+                            Cancel·lar
                         </v-btn>
                         <v-btn
                             color="green"
-                            @click="addEsde()" 
+                            @click="addEsdeveniment()"
                         >
                             Crear
                         </v-btn>
@@ -43,7 +52,10 @@
         </v-row>
 
         <RowEditEsde
-            v-for="esde of esdeveniments"
+            v-for="esdeveniment of esdevenimentsFiltrats"
+            :esdeveniment=esdeveniment
+            @update_esdeveniment="update_esdeveniment"
+            @delete_esdeveniment="delete_esdeveniment"
         ></RowEditEsde>
     </div>
 
@@ -60,27 +72,72 @@
         components: {
             RowEditEsde
         },
+        computed: {
+            esdevenimentsFiltrats() {
+                return this.esdeveniments.filter(esdeveniment => {
+                    return esdeveniment.nom.toLowerCase().includes(this.buscar.toLowerCase())
+                })
+            }
+        },
         setup() {
-            let esdeveniments = ref(["esde1", "esde2", "esde3"]);
+            let esdeveniments = ref();
             let buscar = ref("");
             let dialogAdd = ref(false);
 
-
-            function addEsde() {
-                dialogAdd.value = false;
-                console.log("sha creat un esdeveniment")
-                //simpleFetch("esdeveniments/?limit=1", "GET", "").then((data) => this.esdeveniments = data);
-            }
+            let nom = ref();
+            let descripcio = ref()
+            let dataIni = ref();
+            let dataFi = ref();
+            let horari = ref();
+            let espai = ref();
+            let url = ref();
+            let latitud = ref();
+            let longitud = ref();
 
             return {
                 esdeveniments,
                 buscar,
                 dialogAdd,
-                addEsde
+
+                nom,
+                descripcio,
+                dataIni,
+                dataFi,
+                horari,
+                espai,
+                url,
+                latitud,
+                longitud,
+            }
+        },
+        methods: {
+            update_esdeveniment(nouEsdeveniment) {
+                const index = this.esdeveniments.findIndex(e => e.codi === nouEsdeveniment.codi);
+                this.esdeveniments.splice(index, 1, nouEsdeveniment);
+            },
+            delete_esdeveniment(codi_esdeveniment) {
+                const index = this.esdeveniments.findIndex(e => e.codi === codi_esdeveniment);
+                this.esdeveniments.splice(index, 1);
+            },
+            async addEsdeveniment() {
+                this.dialogAdd = false;
+                console.log("sha creat un esdeveniment")
+                let data = {
+                    'nom': this.nom,
+                    'descripcio': this.descripcio,
+                    'dataIni': this.dataIni,
+                    'dataFi': this.dataFi,
+                    'horari': this.horari,
+                    'espai': this.espai,
+                    'url': this.url,
+                    'latitud': this.latitud,
+                    'longitud': this.longitud
+                }
+                await simpleFetch("esdeveniments/", "POST", data).then((data) => this.esdeveniments.unshift(data));
             }
         },
         mounted() {
-            //simpleFetch("esdeveniments/?limit=1", "GET", "").then((data) => this.esdeveniments = data);
+            simpleFetch("esdeveniments/", "GET", "").then((data) => this.esdeveniments = data);
         }
     }
 </script>
