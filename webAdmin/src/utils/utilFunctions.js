@@ -28,6 +28,8 @@ export async function simpleFetch(endPoint, method, bodyData) {
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
+                "redirect": 'manual',
+                "Access-Control-Allow-Origin": '*',
                 'Authorization': 'Token '+ token, 
             },
             body: JSON.stringify(bodyData),
