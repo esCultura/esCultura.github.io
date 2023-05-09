@@ -1,4 +1,10 @@
-let token = '4399aea952484e30ad0208cd72bf64a083c9b8c4';
+//admin token
+/*
+    angel.prat@gmail.com
+    angelPrat
+    1234qwert
+*/
+let token = 'e645bc12cee73db53f21700427d42081d48ff2a3';
 
 export function setToken(value) {
     token = value;
@@ -28,6 +34,8 @@ export async function simpleFetch(endPoint, method, bodyData) {
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
+                "redirect": 'manual',
+                "Access-Control-Allow-Origin": '*',
                 'Authorization': 'Token '+ token, 
             },
             body: JSON.stringify(bodyData),
