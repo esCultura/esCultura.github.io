@@ -1,4 +1,4 @@
-let token = '5a51301e4453a7c37fbbe3a65636009d0665e09e';
+let token;
 
 export function setToken(value) {
     token = value;
@@ -28,6 +28,8 @@ export async function simpleFetch(endPoint, method, bodyData) {
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
+                "redirect": 'manual',
+                "Access-Control-Allow-Origin": '*',
                 'Authorization': 'Token '+ token, 
             },
             body: JSON.stringify(bodyData),
