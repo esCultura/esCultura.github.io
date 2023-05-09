@@ -1,4 +1,4 @@
-let token = '4399aea952484e30ad0208cd72bf64a083c9b8c4';
+let token = '5a51301e4453a7c37fbbe3a65636009d0665e09e';
 
 export function setToken(value) {
     token = value;
@@ -8,7 +8,7 @@ export async function simpleFetch(endPoint, method, bodyData) {
     console.log("tokenValue: ", token);
     console.log("endPoint: ", endPoint);
 
-    let host = 'http://deploy-env.eba-6a6b2amf.us-west-2.elasticbeanstalk.com/';
+    let host = 'http://127.0.0.1:8000/';
     console.log("url: ", host+endPoint);
 
     let result;

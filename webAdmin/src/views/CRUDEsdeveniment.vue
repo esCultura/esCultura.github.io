@@ -8,7 +8,7 @@
             <v-dialog
                     v-model="dialogAdd"
                     persistent
-                    width="auto"
+                    max-width="100%"
                     >
                     <template v-slot:activator="{ props }">
                         <v-btn
@@ -18,7 +18,7 @@
                     </template>
                     <v-card>
                         <v-card-title class="text-h5">
-                            New esdeveniment
+                            Registrar un nou esdeveniment
                         </v-card-title>
                         <v-card-text> 
                             Text inputs necesaris per crear
@@ -29,7 +29,7 @@
                             color="red"
                             @click="dialogAdd = false"
                         >
-                            Cancel
+                            Cancel·lar
                         </v-btn>
                         <v-btn
                             color="green"
@@ -43,7 +43,8 @@
         </v-row>
 
         <RowEditEsde
-            v-for="esde of esdeveniments"
+            v-for="esdeveniment of esdeveniments"
+            :esdeveniment=esdeveniment
         ></RowEditEsde>
     </div>
 
@@ -61,7 +62,7 @@
             RowEditEsde
         },
         setup() {
-            let esdeveniments = ref(["esde1", "esde2", "esde3"]);
+            let esdeveniments = ref();
             let buscar = ref("");
             let dialogAdd = ref(false);
 
@@ -80,7 +81,7 @@
             }
         },
         mounted() {
-            //simpleFetch("esdeveniments/?limit=1", "GET", "").then((data) => this.esdeveniments = data);
+            simpleFetch("esdeveniments/", "GET", "").then((data) => this.esdeveniments = data);
         }
     }
 </script>
