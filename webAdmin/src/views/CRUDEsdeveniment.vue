@@ -21,9 +21,13 @@
                             Registrar un nou esdeveniment
                         </v-card-title>
                         <v-card-text>
-                            <v-text-field v-model="nom" label="Nom" required></v-text-field>
+                            <v-text-field v-model="nom" label="Nom">
+                                <template #label v-if="nom == ''">
+                                    <span style="color: red;"><strong>* </strong></span>Nom
+                                </template>
+                            </v-text-field>
                             <v-textarea v-model="descripcio" label="Descripció"></v-textarea>
-                            <v-text-field v-model="dataIni" label="Data d'inici" type="date" required></v-text-field>
+                            <v-text-field v-model="dataIni" label="Data d'inici" type="date"></v-text-field>
                             <v-text-field v-model="dataFi" label="Data de final" type="date" required></v-text-field>
                             <v-textarea v-model="horari" label="Horari"></v-textarea>
                             <v-text-field v-model="espai" label="Espai"></v-text-field>
@@ -84,7 +88,7 @@
             let buscar = ref("");
             let dialogAdd = ref(false);
 
-            let nom = ref();
+            let nom = ref('');
             let descripcio = ref()
             let dataIni = ref();
             let dataFi = ref();
