@@ -11,8 +11,8 @@
             style="margin-top: 80px;"
         >
             <RowPendent 
-                v-for="org of pendents" 
-                :pendent=org 
+                v-for="(org, i) in pendents" :key="i"
+                :pendent=org
             />
 
         </div>

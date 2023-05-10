@@ -1,7 +1,5 @@
 <template> 
-    <div>AAAA</div>
-<!--
-    <v-card 
+    <v-card
         class="my-5 mx-10"
     >
         <v-row justify="space-between" style="height: 75px;">
@@ -45,7 +43,6 @@
             </div>
         </v-row>
     </v-card>
-    -->
   </template>
   
   <script>
@@ -60,8 +57,8 @@
         },
         setup() {
             let dialogDelete = ref(false);
-            console.log("pendent row: ", props.pendent);
-            
+            console.log("pendent row: ");
+
             function deleteOrg(user) {
                 dialogDelete.value = false;
                 console.log("sha eliminat el org");
