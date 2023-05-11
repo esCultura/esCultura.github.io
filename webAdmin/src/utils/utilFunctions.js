@@ -4,11 +4,31 @@ export function setToken(value) {
     token = value;
 }
 
+function getCookie() {
+    let name = "Token=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
 export async function simpleFetch(endPoint, method, bodyData) {
+    let token = getCookie();
+    
+    console.log("cookies stored: ", document.cookie);
+
     console.log("tokenValue: ", token);
     console.log("endPoint: ", endPoint);
 
-    let host = 'http://127.0.0.1:8000/';
+    let host = 'http://deploy-env.eba-6a6b2amf.us-west-2.elasticbeanstalk.com/';
     console.log("url: ", host+endPoint);
 
     let result;
