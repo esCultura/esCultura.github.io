@@ -66,9 +66,17 @@
                 console.log("user: ", user);
                 simpleFetch(endpoint, "POST", {}).then(data => console.log(data));
             }
+
+            function donarAcces(user) {
+                console.log("sha donat acces el org");
+                let endpoint = "usuaris/organitzadorspendents/"+user+"/accept/";
+                console.log("user: ", user);
+                simpleFetch(endpoint, "POST", {}).then(data => console.log(data));
+            }
   
             return {
                 dialogDelete,
+                donarAcces,
                 deleteOrg,
             }
         },

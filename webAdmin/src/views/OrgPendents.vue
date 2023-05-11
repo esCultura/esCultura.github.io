@@ -11,7 +11,8 @@
             style="margin-top: 80px;"
         >
             <RowPendent 
-                v-for="(org, i) in pendents" :key="i"
+                v-for="(org, i) in pendents" 
+                :key="i"
                 :pendent=org
             />
 
@@ -34,16 +35,8 @@
         setup() {
             let pendents = ref();
          
-            function donarAcces(user) {
-                console.log("sha donat acces el org");
-                let endpoint = "usuaris/organitzadorspendents/"+user+"/accept";
-                console.log("user: ", user);
-                simpleFetch(endpoint, "POST", {}).then(data => console.log(data));
-            }
-           
             return {
-                pendents,
-                donarAcces
+                pendents
             }
         },
         mounted() {
