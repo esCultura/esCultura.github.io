@@ -17,11 +17,12 @@
                         >ADD</v-btn>
                     </template>
                     <v-card>
+                        <form @submit.prevent="addEsdeveniment()">
                         <v-card-title class="text-h5">
                             Registrar un nou esdeveniment
                         </v-card-title>
                         <v-card-text>
-                            <v-text-field v-model="nom" label="Nom" required></v-text-field>
+                            <v-text-field v-model="nom" label="Nom" type="text" required></v-text-field>
                             <v-textarea v-model="descripcio" label="Descripció"></v-textarea>
                             <v-text-field v-model="dataIni" label="Data d'inici" type="date" required></v-text-field>
                             <v-text-field v-model="dataFi" label="Data de final" type="date" required></v-text-field>
@@ -40,19 +41,19 @@
                         >
                             Cancel·lar
                         </v-btn>
-                        <v-btn
-                            color="green"
-                            @click="addEsdeveniment()"
+                        <button class="v-btn v-theme--light text-green"
+                            type="submit"
                         >
                             Crear
-                        </v-btn>
+                        </button>
                         </v-card-actions>
+                        </form>
                     </v-card>
             </v-dialog>
         </v-row>
 
         <RowEditEsde
-            v-for="esdeveniment of esdevenimentsFiltrats"
+            v-for="(esdeveniment, i) of esdevenimentsFiltrats" :key="i"
             :esdeveniment=esdeveniment
             @update_esdeveniment="update_esdeveniment"
             @delete_esdeveniment="delete_esdeveniment"
@@ -84,7 +85,7 @@
             let buscar = ref("");
             let dialogAdd = ref(false);
 
-            let nom = ref();
+            let nom = ref('');
             let descripcio = ref()
             let dataIni = ref();
             let dataFi = ref();
