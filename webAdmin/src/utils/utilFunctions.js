@@ -8,7 +8,7 @@ export async function simpleFetch(endPoint, method, bodyData) {
     console.log("tokenValue: ", token);
     console.log("endPoint: ", endPoint);
 
-    let host = 'http://127.0.0.1:8000/';
+    let host = 'http://deploy-env.eba-6a6b2amf.us-west-2.elasticbeanstalk.com/';
     console.log("url: ", host+endPoint);
 
     let result;
@@ -28,9 +28,7 @@ export async function simpleFetch(endPoint, method, bodyData) {
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "redirect": 'manual',
-                "Access-Control-Allow-Origin": '*',
-                'Authorization': 'Token '+ token, 
+                'Authorization': 'Token '+ token,
             },
             body: JSON.stringify(bodyData),
         })
