@@ -14,6 +14,7 @@
                         <v-btn v-bind="props" color="#2eca5a" class="mr-5" >Modificar</v-btn>
                     </template>
                     <v-card>
+                        <form @submit.prevent="saveEdit()">
                         <v-card-title class="text-h5">
                             Edició de {{ esdeveniment.nom }}
                         </v-card-title>
@@ -36,13 +37,13 @@
                         >
                             Cancel·lar
                         </v-btn>
-                        <v-btn
-                            color="green"
-                            @click="saveEdit()"
+                        <button class="v-btn v-theme--light text-green"
+                                type="submit"
                         >
                             Actualitzar
-                        </v-btn>
+                        </button>
                         </v-card-actions>
+                        </form>
                     </v-card>
                 </v-dialog>
 
