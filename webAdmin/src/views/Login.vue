@@ -49,6 +49,13 @@
 
         let msgErrorLogin = ref('');
 
+        function setCookie(cname, cvalue, exdays) {
+          const d = new Date();
+          d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+          let expires = "expires="+d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
         async function doLogin() {
           let data;
           let host = 'http://deploy-env.eba-6a6b2amf.us-west-2.elasticbeanstalk.com/';
@@ -74,6 +81,7 @@
               msgErrorLogin.value = str;
             }
             else if (data.token) {
+              setCookie("Token", data.token, 1);
               setToken(data.token);
               //redirect path --> /Review
               router.push('/Review');
@@ -91,6 +99,7 @@
               body: JSON.stringify({username: username.value, password: password.value}),
             })
             console.log("response: ", response);
+            
             let data = await response.json();
             console.log("login org data: ", data);
             if (data.non_field_errors) {
@@ -101,6 +110,8 @@
               msgErrorLogin.value = str;
             }
             else if (data.token) {
+              setCookie("Token", data.token, 1);
+              //document.cookie = `${data.token}; max-age=${60000 * 30};`;
               setToken(data.token);
               //redirect path  --> /edit
               router.push('/edit');
