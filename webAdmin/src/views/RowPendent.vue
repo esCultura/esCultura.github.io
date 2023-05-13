@@ -55,23 +55,26 @@
         props: {
             pendent: Object,
         },
-        setup() {
+        emits: ['emitReload'],
+        setup(props, context) {
             let dialogDelete = ref(false);
             console.log("pendent row: ");
 
-            function deleteOrg(user) {
+            async function deleteOrg(user) {
                 dialogDelete.value = false;
                 console.log("sha eliminat el org");
-                let endpoint = "usuaris/organitzadors/pendents/"+user+"/delete/";
+                let endpoint = "usuaris/organitzadorspendents/"+user+"/reject/";
                 console.log("user: ", user);
-                simpleFetch(endpoint, "POST", {}).then(data => console.log(data));
+                await simpleFetch(endpoint, "POST", {}).then(data => console.log("post reject", data));
+                context.emit('emitReload');
             }
 
-            function donarAcces(user) {
+            async function donarAcces(user) {
                 console.log("sha donat acces el org");
                 let endpoint = "usuaris/organitzadorspendents/"+user+"/accept/";
                 console.log("user: ", user);
-                simpleFetch(endpoint, "POST", {}).then(data => console.log(data));
+                await simpleFetch(endpoint, "POST", {}).then(data => console.log("post accept", data));
+                context.emit('emitReload');
             }
   
             return {

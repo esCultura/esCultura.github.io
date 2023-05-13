@@ -14,6 +14,7 @@
                 v-for="(org, i) in pendents" 
                 :key="i"
                 :pendent=org
+                @emitReload="actualitzar()"
             />
 
         </div>
@@ -34,9 +35,15 @@
         },
         setup() {
             let pendents = ref();
+
+            function actualitzar() {
+                console.log("emit and act");
+                simpleFetch("usuaris/organitzadorspendents", "GET", "").then((data) => pendents.value = data);
+            }
          
             return {
-                pendents
+                actualitzar,
+                pendents,
             }
         },
         mounted() {
