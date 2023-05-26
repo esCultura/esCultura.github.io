@@ -1,47 +1,32 @@
 <template>
+    <h1>Lector de QR d'entrades</h1>
+    <br>
+    <StreamBarcodeReader @decode="checkin"></StreamBarcodeReader>
+</template>
 
-    <div>
-  
-        <v-btn @click="fetchUser()">A</v-btn>
-  
-        <div> QR Esdeveniment </div>
-    </div>
-  
-  </template>
-  
-  <script>
-    import {simpleFetch} from '../utils/utilFunctions';
-  
-    export default {
-        
-        name: "QREsdeveniment",
-        /*
-        Si es necesari l'estructura es aixi
-        components: {
-            exempleComponent
-        },
-        props: {
-            title: String
-        },
-        setup(props) {
-        */
-        setup() {
-  
-            
-            async function fetchUser() {
-                let issues;
-                simpleFetch("issues/", "GET", "").then((data) => issues = data);    
-                console.log("issues: ", issues);
+<script>
+import { StreamBarcodeReader } from 'vue-barcode-reader'
+
+export default {
+    name: "QREsdeveniment",
+    components: {
+        StreamBarcodeReader
+    },
+    methods: {
+        checkin(result) {
+            // Comprovem que el QR llegit sigui nostre
+            const protocol = window.location.protocol
+            const host = window.location.host
+            if (result.startsWith(protocol + '//' + host + '/checkin/')) {
+                // Anem a la URL que hem llegit
+                this.$router.push(result.substring((protocol + '//' + host).length))
             }
-  
-            return {
-                fetchUser
-            }
+            console.log(result)
         }
-    }
-  </script>
-  
-  <style scoped>
-  
-  </style>
-  
+    },
+}
+</script>
+
+<style scoped>
+
+</style>
