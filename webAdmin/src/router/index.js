@@ -38,6 +38,11 @@ const router = createRouter({
       name: 'qrValidator',
       component: () => import('../views/QREsdeveniment.vue')
     },
+    {
+      path: '/checkin/:id_entrada',
+      name: 'qrCheckin',
+      component: () => import('../views/QRCheckin.vue')
+    },
   ]
 })
 

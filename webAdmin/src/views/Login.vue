@@ -58,7 +58,7 @@
 
         async function doLogin() {
           let data;
-          let host = 'http://deploy-env.eba-6a6b2amf.us-west-2.elasticbeanstalk.com/';
+          let host = 'http://127.0.0.1:8000/';
 
           if (admin.value) {
             msgErrorLogin.value = '';

@@ -8,7 +8,7 @@
 import { StreamBarcodeReader } from 'vue-barcode-reader'
 
 export default {
-    name: "LectorQR",
+    name: "QREsdeveniment",
     components: {
         StreamBarcodeReader
     },
@@ -21,6 +21,7 @@ export default {
                 // Anem a la URL que hem llegit
                 this.$router.push(result.substring((protocol + '//' + host).length))
             }
+            console.log(result)
         }
     },
 }

@@ -6,46 +6,9 @@
 
     <br><br>
 
-
-
-    <!--<v-descriptions
-        v-if="estat === 'ok' || estat === 'validada-ok' || estat === 'pre-ok'"
-        class="margin-top"
-        :column="1"
-        border
-    >
-        <el-descriptions-item>
-            <template #label>
-                <div class="cell-item">
-                    <el-icon :style="iconStyle">
-                        <i class="fa fa-user"></i>
-                    </el-icon>
-                    {{ $t('Nom i cognoms') }}
-                </div>
-            </template>
-            {{ entrada.nom }} {{ entrada.cognoms }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-            <template #label>
-                <div class="cell-item">
-                    <el-icon :style="iconStyle">
-                    </el-icon>
-                    {{ $t('Seient') }}
-                </div>
-            </template>
-            {{ entrada.seient }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-            <template #label>
-                <div class="cell-item">
-                    <el-icon :style="iconStyle">
-                    </el-icon>
-                    {{ $t('Box') }}
-                </div>
-            </template>
-            {{ entrada.box }}
-        </el-descriptions-item>
-    </v-descriptions>-->
+    <button class="v-btn v-theme--light"
+            @click="$router.push({name: 'qrValidator'})"
+    >ESCANEJAR UNA ALTRA ENTRADA</button>
 
 </template>
 
@@ -63,18 +26,19 @@ export default {
     },
     methods: {
         async refrescaEntrada() {
-            simpleFetch("assistencies", "GET", "").then((data) => this.entrada = data);
-            if (! this.entrada) this.estat = 'ko'
+            await simpleFetch("assistencies/?uuid=" + this.$route.params.id_entrada, "GET", "").then((data) => this.entrada = data[0]);
+            if (this.entrada.qr === null) this.estat = 'ko'
         },
         async checkin() {
             //if (this.$store.getters.isAdmin) {
                 // Si no havia estat validada
                 if (!this.entrada.dataValidacio) {
+                    console.log("hola")
                     let dades = {
                         uuid: this.entrada.uuid,
                         dataValidacio: new Date(),
                     }
-                    simpleFetch("assistencies", "PATCH", dades).then((data) => this.entrada = data);
+                    simpleFetch("assistencies/" + this.entrada.uuid + "/", "PATCH", dades).then((data) => this.entrada = data);
                     this.estat = 'validada-ok'
                     /*if (response.status == 200) {
                         this.entrada = response.data
