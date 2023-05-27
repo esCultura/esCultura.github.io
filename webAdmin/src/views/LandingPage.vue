@@ -53,7 +53,7 @@ Et harum quidem rerum facilis est et expedita distinctio.</p>
           <!-- Section 3 -->
           <section style="margin: 10px;">
             <div style="display: flex; justify-content: space-between;">
-              <img src="path/to/your/image.jpg" alt="Description of the image">
+              <!-- <img src="path/to/your/image.jpg" alt="Description of the image"> -->
               <p style="margin-left: 10px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.

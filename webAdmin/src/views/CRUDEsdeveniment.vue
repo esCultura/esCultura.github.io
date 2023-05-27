@@ -6,7 +6,7 @@
         </v-app-bar-title>
     </v-app-bar>
 
-    <div v-if="esdeveniments">
+    <div v-if="esdeveniments" style="margin-top: 40px;">
 
         <v-row class="mt-8 mx- 5">
             <v-text-field v-model="buscar" label="Buscar" class="mt-5 ml-5 mr-14"></v-text-field>
