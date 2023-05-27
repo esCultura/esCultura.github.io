@@ -1,4 +1,10 @@
 <template>
+<v-app>
+    <v-app-bar>
+        <v-app-bar-title>
+            Crear i gestionar esdeveniments
+        </v-app-bar-title>
+    </v-app-bar>
 
     <div v-if="esdeveniments">
 
@@ -59,7 +65,7 @@
             @delete_esdeveniment="delete_esdeveniment"
         ></RowEditEsde>
     </div>
-
+</v-app>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
         class="my-5 mx-10"
     >
         <v-row justify="space-between" style="height: 75px;">
-            <v-card-title>CRUD Esdeveniment comp {{ pendent.username }}</v-card-title>
+            <v-card-title>Organitzador pendent: {{ pendent.username }}</v-card-title>
             <div style="display: flex; justify-content: left;" class="mt-5">
 
                 <v-btn @click="donarAcces(pendent.user)" color="#2eca5a" class="mr-5" >Aceptar</v-btn>
