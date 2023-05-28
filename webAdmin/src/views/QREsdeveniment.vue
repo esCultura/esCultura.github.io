@@ -17,11 +17,11 @@ export default {
             // Comprovem que el QR llegit sigui nostre
             const protocol = window.location.protocol
             const host = window.location.host
-            if (result.startsWith(protocol + '//' + host + '/checkin/')) {
-                // Anem a la URL que hem llegit
-                this.$router.push(result.substring((protocol + '//' + host).length))
-            }
+            console.log(protocol)
+            console.log(host)
+            this.$router.push(result.substring(result.indexOf("/checkin")))
             console.log(result)
+            console.log(result.substring(result.indexOf("/checkin")))
         }
     },
 }
