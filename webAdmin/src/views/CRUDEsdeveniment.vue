@@ -18,9 +18,13 @@
                     >
                     <template v-slot:activator="{ props }">
                         <v-btn
+                            @click="$router.push({name:'qrValidator'})"
+                            class="mr-10 mt-7"
+                        >Llegir QR</v-btn>
+                        <v-btn
                             v-bind="props"
                             class="mr-10 mt-7"
-                        >ADD</v-btn>
+                        >Afegir</v-btn>
                     </template>
                     <v-card>
                         <form @submit.prevent="addEsdeveniment()">
